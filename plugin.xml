@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"
+    id="com.blakgeek.cordova.plugin.kinesis" version="1.0.2">
+    <name>AWS Kinesis Plugin</name>
+    <description>Adds support for sending messages to AWS Kinesis to your Cordova/PhoneGap apps.</description>
+    <license>Apache 2.0</license>
+    <keywords>aws,kinesis,sdk,amazon,cordova</keywords>
+    <author>Carlos "blakgeek" Lawton</author>
+    <repo>https://github.com/blakgeek/cordova-plugin-kinesis.git</repo>
+    <issue>https://github.com/blakgeek/cordova-plugin-kinesis/issues</issue>
+
+    <js-module src="www/plugin.js" name="KinesisPlugin">
+        <clobbers target="Kinesis" />
+        <clobbers target="plugins.Kinesis" />
+    </js-module>
+
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="KinesisPlugin">
+                <param name="ios-package" value="KinesisPlugin" />
+            </feature>
+        </config-file>
+        <header-file src="src/ios/Flurry.h" />
+        <header-file src="src/ios/KinesisPlugin.h" />
+        <source-file src="src/ios/KinesisPlugin.m" />
+        <source-file src="src/ios/libFlurry_6.0.0.a" framework="true" />
+        <framework src="SystemConfiguration.framework" />
+        <framework src="CFNetwork.framework" />
+        <framework src="Security.framework" />
+    </platform>
+
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="KinesisPlugin">
+                <param name="android-package" value="com.blakgeek.cordova.plugin.aws.KinesisPlugin" />
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/com/blakgeek/cordova/plugin/aws/KinesisPlugin.java"
+            target-dir="src/com/blakgeek/cordova/plugin/aws/" />
+        <source-file src="src/android/Kinesis-5.0.0.jar" target-dir="libs" />
+
+    </platform>
+</plugin>
