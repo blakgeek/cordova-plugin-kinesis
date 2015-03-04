@@ -1,20 +1,11 @@
 #import <Foundation/Foundation.h>
 #import <Cordova/CDV.h>
 
-@interface FlurryAnalyticsPlugin : CDVPlugin
+@interface KinesisPlugin : CDVPlugin
+
 - (void)initialize:(CDVInvokedUrlCommand *)command;
+- (void)sendMessage:(CDVInvokedUrlCommand *)command;
+- (void)purge:(CDVInvokedUrlCommand *)command;
 
-- (void)logEvent:(CDVInvokedUrlCommand *)command;
-
-- (void)endTimedEvent:(CDVInvokedUrlCommand *)command;
-
-- (void)logPageView:(CDVInvokedUrlCommand *)command;
-
-- (void)logError:(CDVInvokedUrlCommand *)command;
-
-- (void)setLocation:(CDVInvokedUrlCommand *)command;
-
-- (void)startSession:(CDVInvokedUrlCommand *)command;
-
-- (void)endSession:(CDVInvokedUrlCommand *)command;
+@property(nonatomic) NSString *stream;
 @end

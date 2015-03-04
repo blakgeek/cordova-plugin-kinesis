@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"
-    id="com.blakgeek.cordova.plugin.kinesis" version="1.0.2">
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="com.blakgeek.cordova.plugin.kinesis" version="1.0.2">
     <name>AWS Kinesis Plugin</name>
     <description>Adds support for sending messages to AWS Kinesis to your Cordova/PhoneGap apps.</description>
     <license>Apache 2.0</license>
@@ -22,27 +21,46 @@
         <config-file target="config.xml" parent="/*">
             <feature name="KinesisPlugin">
                 <param name="ios-package" value="KinesisPlugin" />
+                <param name="onload" value="true" />
             </feature>
         </config-file>
-        <header-file src="src/ios/Flurry.h" />
         <header-file src="src/ios/KinesisPlugin.h" />
         <source-file src="src/ios/KinesisPlugin.m" />
-        <source-file src="src/ios/libFlurry_6.0.0.a" framework="true" />
+        <framework src="src/ios/AWSiOSSDKv2.framework" custom="true" />
+        <framework src="src/ios/AWSCognitoSync.framework" custom="true" />
+        <framework src="src/ios/Bolts.framework" custom="true" />
+        <framework src="src/ios/FMDB.framework" custom="true" />
+        <framework src="src/ios/GZIP.framework" custom="true" />
+        <framework src="src/ios/Mantle.framework" custom="true" />
+        <framework src="src/ios/Reachability.framework" custom="tru" />
+        <framework src="src/ios/TMCache.framework" custom="true" />
+        <framework src="src/ios/UICKeyChainStore.framework" custom="true" />
+        <framework src="src/ios/XMLDictionary.framework" custom="true" />
         <framework src="SystemConfiguration.framework" />
-        <framework src="CFNetwork.framework" />
-        <framework src="Security.framework" />
+        <framework src="libsqlite3.dylib" />
+        <framework src="libz.dylib" />
+        <!-- TODO: add service definitions once I figure out how to do it properly -->
+        <!--
+        NOTE: unitl the preceding todo is completed the service definitions will have to be added manually
+        not doing so won't break anything the errors will just be cryptic.  use Google it's your friend
+        -->
     </platform>
 
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="KinesisPlugin">
                 <param name="android-package" value="com.blakgeek.cordova.plugin.aws.KinesisPlugin" />
+                <param name="onload" value="true" />
             </feature>
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.INTERNET" />
         </config-file>
 
         <source-file src="src/android/com/blakgeek/cordova/plugin/aws/KinesisPlugin.java"
             target-dir="src/com/blakgeek/cordova/plugin/aws/" />
-        <source-file src="src/android/Kinesis-5.0.0.jar" target-dir="libs" />
+        <source-file src="src/android/aws-android-sdk-core-2.1.10.jar" target-dir="libs" />
+        <source-file src="src/android/aws-android-sdk-kinesis-2.1.10.jar" target-dir="libs" />
 
     </platform>
 </plugin>

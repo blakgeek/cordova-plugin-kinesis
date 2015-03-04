@@ -1,31 +1,23 @@
-
-
 function KinesisPlugin() {
 
 	const PLUGIN_NAME = 'KinesisPlugin';
-	this.init = function(appKey /* [options], successCallback, failureCallback */) {
+	this.init = function(idPoolId, region, successCallback, failureCallback) {
 
-		var successCallback,
-			failureCallback,
-			options;
-
-		if(arguments.length === 4) {
-			options = arguments[1];
-			successCallback = arguments[2];
-			failureCallback = arguments[3];
-		} else if(arguments.length === 3) {
-			successCallback = arguments[1];
-			failureCallback = arguments[2];
-		} else if(arguments.length === 2) {
-			options = arguments[1];
-		}
-
-		return cordova.exec(successCallback, failureCallback, PLUGIN_NAME, 'initialize', [appKey, options]);
+		return cordova.exec(successCallback, failureCallback, PLUGIN_NAME, 'initialize', [idPoolId, region]);
 	};
+
+	this.sendMessage = function(message, streamName, successCallback, failureCallback) {
+
+		return cordova.exec(successCallback, failureCallback, PLUGIN_NAME, 'sendMessage', [message, streamName]);
+	};
+
+	this.purge = function(successCallback, failureCallback) {
+
+		return cordova.exec(successCallback, failureCallback, PLUGIN_NAME, 'purge', []);
+	}
 }
 
 if(typeof module !== undefined && module.exports) {
 
 	module.exports = KinesisPlugin;
 }
-
